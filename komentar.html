@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Komentar Pengunjung</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <h1>Komentar Pengunjung</h1>
+    <p>Pangklong Kayu Barokah Jatidatar Mataram</p>
+</header>
+
+<nav>
+    <a href="./index.html">Beranda</a>
+    <a href="./profil.html">Profil</a>
+    <a href="./produk.html">Produk</a>
+    <a href=./"stok.html">Stok Kayu</a>
+    <a href="./komentar.html">Komentar</a>
+</nav>
+
+<section>
+    <h2>Tulis Komentar</h2>
+
+    <form id="formKomentar">
+        <label>Nama</label><br>
+        <input type="text" id="nama" required><br><br>
+
+        <label>Komentar</label><br>
+        <textarea id="isi" rows="4" required></textarea><br><br>
+
+        <button type="submit">Kirim</button>
+    </form>
+
+    <hr>
+
+    <h3>Daftar Komentar</h3>
+    <div id="daftarKomentar"></div>
+</section>
+
+<script>
+document.getElementById("formKomentar").addEventListener("submit", function(e){
+    e.preventDefault();
+
+    let nama = document.getElementById("nama").value;
+    let isi = document.getElementById("isi").value;
+
+    let komentarBaru = `
+        <p><strong>${nama}</strong><br>${isi}</p><hr>
+    `;
+
+    document.getElementById("daftarKomentar").innerHTML += komentarBaru;
+
+    document.getElementById("formKomentar").reset();
+});
+</script>
+
+<footer>
+    © 2025 Pangklong Kayu Jatidatar Mataram
+</footer>
+
+</body>
+</html>

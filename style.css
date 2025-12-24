@@ -1,0 +1,46 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #e8f5e9;
+}
+
+/* HEADER */
+header {
+    background-color: #2e7d32;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+/* MENU */
+nav {
+    background-color: #1b5e20;
+    padding: 10px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin-right: 15px;
+    font-weight: bold;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+/* ISI */
+section {
+    background-color: white;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+/* FOOTER */
+footer {
+    background-color: #2e7d32;
+    color: white;
+    text-align: center;
+    padding: 10px;
+}
