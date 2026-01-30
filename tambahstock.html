@@ -15,144 +15,153 @@ table { width:100%; border-collapse:collapse; margin-top:10px; }
 table, th, td { border:1px solid #333; }
 th { background:#4CAF50; color:white; }
 th, td { padding:10px; text-align:center; }
-input[type=number], select { padding:6px; margin:5px 0; }
+input[type=number] { width:80px; }
 button { padding:8px 12px; cursor:pointer; background:#4CAF50; color:white; border:none; border-radius:4px; }
 button:hover { background:#45a049; }
 </style>
 </head>
-
 <body>
 
 <header><h1>Tambah Stok Kayu</h1></header>
 
 <nav>
-  <a href="./index.html">Beranda</a>
-  <a href="./profil.html">Profil</a>
-  <a href="./produk.html">Produk</a>
-  <a href="./stok.html">Stok Kayu</a>
-  <a href="./penjualan.html">Penjualan</a>
-  <a href="./komentar.html">Komentar</a>
-  <a href="./tambahstock.html">Tambah Stok</a>
+    <a href="./index.html">Beranda</a>
+    <a href="./profil.html">Profil</a>
+    <a href="./produk.html">Produk</a>
+    <a href="./stok.html">Stok Kayu</a>
+    <a href="./penjualan.html">Penjualan</a>
+    <a href="./komentar.html">Komentar</a>
+	<a href="./tambahstock.html">Tambah Stok</a>
 </nav>
 
 <div class="container">
 
-  <!-- FORM DI ATAS -->
-  <div class="card">
-    <h2>Form Tambah Stok</h2>
+    <div class="card">
+        <h2>Stok Kayu</h2>
+        <table id="tabelStok">
+            <tr>
+                <th>No</th>
+                <th>Nama Kayu</th>
+                <th>Ukuran</th>
+                <th>Stok</th>
+                <th>Harga (m³)</th>
+                <th>Harga Satuan</th>
+            </tr>
+        </table>
+    </div>
 
-    <label>Jenis Kayu</label><br>
-    <select id="jenisTambah"></select><br>
-
-    <label>Ukuran</label><br>
-    <select id="ukuranTambah"></select><br>
-
-    <label>Jumlah</label><br>
-    <input type="number" id="jumlahTambah" value="1" min="1"><br><br>
-
-    <button onclick="tambahStok()">Tambah Stok</button>
-  </div>
-
-  <!-- TABEL DI BAWAH -->
-  <div class="card">
-    <h2>Stok Kayu</h2>
-    <table id="tabelStok">
-      <tr>
-        <th>No</th>
-        <th>Nama Kayu</th>
-        <th>Ukuran</th>
-        <th>Stok</th>
-        <th>Harga (m³)</th>
-        <th>Harga Satuan</th>
-      </tr>
-    </table>
-  </div>
+    <div class="card">
+        <h2>Form Tambah Stok</h2>
+        <label>Jenis Kayu: 
+            <select id="jenisTambah"></select>
+        </label>
+        <br>
+        <label>Ukuran: 
+            <select id="ukuranTambah"></select>
+        </label>
+        <br>
+        <label>Jumlah: <input type="number" id="jumlahTambah" value="1" min="1"></label>
+        <br><br>
+        <button onclick="tambahStok()">Tambah Stok</button>
+    </div>
 
 </div>
 
 <script>
+// ===== DATA AWAL =====
 let stokKayu = JSON.parse(localStorage.getItem("stokKayu")) || [
-  {nama:"Mentru", ukuran:"5x10x4", stok:300, hargaM3:2900000, hargaSatuan:60000},
-  {nama:"Mentru", ukuran:"8x12x4", stok:300, hargaM3:2900000, hargaSatuan:115000},
-  {nama:"Mentru", ukuran:"6x12x4", stok:250, hargaM3:2900000, hargaSatuan:85000},
-  {nama:"Mentru", ukuran:"2x3x4", stok:5000, hargaM3:2900000, hargaSatuan:8000},
-  {nama:"Mentru", ukuran:"5x5x4", stok:3000, hargaM3:2600000, hargaSatuan:27000},
-  {nama:"Sengon", ukuran:"5x10x4", stok:300, hargaM3:2600000, hargaSatuan:55000},
-  {nama:"Sengon", ukuran:"8x12x4", stok:300, hargaM3:2600000, hargaSatuan:100000},
-  {nama:"Sengon", ukuran:"6x12x4", stok:250, hargaM3:2900000, hargaSatuan:75000},
-  {nama:"Sengon", ukuran:"2x3x4", stok:5000, hargaM3:2600000, hargaSatuan:7000},
-  {nama:"Sengon", ukuran:"5x5x4", stok:3000, hargaM3:2600000, hargaSatuan:27000},
-  {nama:"Racuk", ukuran:"5x10x4", stok:300, hargaM3:2600000, hargaSatuan:55000},
-  {nama:"Racuk", ukuran:"8x12x4", stok:300, hargaM3:2600000, hargaSatuan:100000},
-  {nama:"Racuk", ukuran:"6x12x4", stok:250, hargaM3:2900000, hargaSatuan:75000},
-  {nama:"Racuk", ukuran:"2x3x4", stok:5000, hargaM3:2600000, hargaSatuan:7000},
-  {nama:"Racuk", ukuran:"5x5x4", stok:3000, hargaM3:2600000, hargaSatuan:27000}
+    {nama:"Mentru", ukuran:"5x10x4", stok:300, hargaM3:2900000, hargaSatuan:60000},
+    {nama:"Mentru", ukuran:"8x12x4", stok:300, hargaM3:2900000, hargaSatuan:115000},
+    {nama:"Mentru", ukuran:"6x12x4", stok:250, hargaM3:2900000, hargaSatuan:85000},
+    {nama:"Mentru", ukuran:"2x3x4", stok:5000, hargaM3:2900000, hargaSatuan:8000},
+    {nama:"Mentru", ukuran:"5x5x4", stok:3000, hargaM3:2600000, hargaSatuan:27000},
+    {nama:"Sengon", ukuran:"5x10x4", stok:300, hargaM3:2600000, hargaSatuan:55000},
+    {nama:"Sengon", ukuran:"8x12x4", stok:300, hargaM3:2600000, hargaSatuan:100000},
+    {nama:"Sengon", ukuran:"6x12x4", stok:250, hargaM3:2900000, hargaSatuan:75000},
+    {nama:"Sengon", ukuran:"2x3x4", stok:5000, hargaM3:2600000, hargaSatuan:7000},
+    {nama:"Sengon", ukuran:"5x5x4", stok:3000, hargaM3:2600000, hargaSatuan:27000},
+    {nama:"Racuk", ukuran:"5x10x4", stok:300, hargaM3:2600000, hargaSatuan:55000},
+    {nama:"Racuk", ukuran:"8x12x4", stok:300, hargaM3:2600000, hargaSatuan:100000},
+    {nama:"Racuk", ukuran:"6x12x4", stok:250, hargaM3:2900000, hargaSatuan:75000},
+    {nama:"Racuk", ukuran:"2x3x4", stok:5000, hargaM3:2600000, hargaSatuan:7000},
+    {nama:"Racuk", ukuran:"5x5x4", stok:3000, hargaM3:2600000, hargaSatuan:27000}
 ];
 
-function simpanData(){
-  localStorage.setItem("stokKayu", JSON.stringify(stokKayu));
+// ===== SIMPAN DATA =====
+function simpanData() {
+    localStorage.setItem("stokKayu", JSON.stringify(stokKayu));
 }
 
-function renderTabel(){
-  const tabel = document.getElementById("tabelStok");
-  tabel.innerHTML = `
-    <tr>
-      <th>No</th>
-      <th>Nama Kayu</th>
-      <th>Ukuran</th>
-      <th>Stok</th>
-      <th>Harga (m³)</th>
-      <th>Harga Satuan</th>
-    </tr>`;
-  stokKayu.forEach((i, idx)=>{
-    tabel.innerHTML += `
-      <tr>
-        <td>${idx+1}</td>
-        <td>${i.nama}</td>
-        <td>${i.ukuran}</td>
-        <td>${i.stok}</td>
-        <td>Rp ${i.hargaM3.toLocaleString()}</td>
-        <td>Rp ${i.hargaSatuan.toLocaleString()}</td>
-      </tr>`;
-  });
+// ===== RENDER TABEL =====
+function renderTabel() {
+    const tabel = document.getElementById("tabelStok");
+    tabel.innerHTML = `
+        <tr>
+            <th>No</th>
+            <th>Nama Kayu</th>
+            <th>Ukuran</th>
+            <th>Stok</th>
+            <th>Harga (m³)</th>
+            <th>Harga Satuan</th>
+        </tr>
+    `;
+    stokKayu.forEach((item, index)=>{
+        tabel.innerHTML += `
+            <tr>
+                <td>${index+1}</td>
+                <td>${item.nama}</td>
+                <td>${item.ukuran}</td>
+                <td>${item.stok}</td>
+                <td>Rp ${item.hargaM3.toLocaleString()}</td>
+                <td>Rp ${item.hargaSatuan.toLocaleString()}</td>
+            </tr>
+        `;
+    });
 }
 
-function isiSelect(){
-  const jenis = [...new Set(stokKayu.map(i=>i.nama))];
-  const select = document.getElementById("jenisTambah");
-  select.innerHTML = "";
-  jenis.forEach(j=>{
-    select.innerHTML += <option value="${j}">${j}</option>;
-  });
-  updateUkuran();
+// ===== ISI SELECT OPTION =====
+function isiSelect() {
+    const jenis = [...new Set(stokKayu.map(i=>i.nama))];
+    const selectTambah = document.getElementById("jenisTambah");
+    selectTambah.innerHTML = "";
+    jenis.forEach(j=> selectTambah.innerHTML += `<option value="${j}">${j}</option>`);
+    updateUkuran();
 }
 
-function updateUkuran(){
-  const jenis = document.getElementById("jenisTambah").value;
-  const select = document.getElementById("ukuranTambah");
-  select.innerHTML = "";
-  stokKayu.filter(i=>i.nama===jenis).forEach(i=>{
-    select.innerHTML += <option value="${i.ukuran}">${i.ukuran}</option>;
-  });
+function updateUkuran() {
+    let jenisVal = document.getElementById("jenisTambah").value;
+    let ukuran = stokKayu.filter(i=>i.nama===jenisVal).map(i=>i.ukuran);
+    const selectUkuran = document.getElementById("ukuranTambah");
+    selectUkuran.innerHTML = "";
+    ukuran.forEach(u=> selectUkuran.innerHTML += `<option value="${u}">${u}</option>`);
 }
 
-function tambahStok(){
-  const jenis = jenisTambah.value;
-  const ukuran = ukuranTambah.value;
-  const jumlah = parseInt(jumlahTambah.value);
+// ===== TAMBAH STOK =====
+function tambahStok() {
+    let jenis = document.getElementById("jenisTambah").value;
+    let ukuran = document.getElementById("ukuranTambah").value;
+    let jumlah = parseInt(document.getElementById("jumlahTambah").value);
 
-  if(jumlah<=0) return alert("Jumlah tidak valid!");
+    if(!jumlah || jumlah <= 0) {
+        alert("Masukkan jumlah valid!");
+        return;
+    }
 
-  const item = stokKayu.find(i=>i.nama===jenis && i.ukuran===ukuran);
-  item.stok += jumlah;
-
-  simpanData();
-  renderTabel();
-  alert(Stok ${jenis} ${ukuran} bertambah ${jumlah});
+    let item = stokKayu.find(i=>i.nama===jenis && i.ukuran===ukuran);
+    if(item) {
+        item.stok += jumlah;
+        simpanData();
+        renderTabel();
+        alert(`Stok ${jenis} ${ukuran} bertambah ${jumlah}`);
+    } else {
+        alert("Item tidak ditemukan!");
+    }
 }
 
-jenisTambah.addEventListener("change", updateUkuran);
+// ===== EVENT =====
+document.getElementById("jenisTambah").addEventListener("change", updateUkuran);
 
+// ===== INIT =====
 isiSelect();
 renderTabel();
 </script>
